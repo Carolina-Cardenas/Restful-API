@@ -10,47 +10,47 @@ app.listen(PORT,()=>{
     console.log (`server is runnig im http://localhost:${PORT}`)
 });
 
-let books= [
+let users= [
     {
  id: 1,
- title:"1984",
- author: "George Orwell",
+ name:"Juan Perez",
+ nationality: "Peruan",
 },
 {
     id: 2,
-    title: "The Hobbit",
-    author: "J.R.R Tolkien",
+    name: "Zlatan Ibrahimovich",
+    nationality: "Swedish",
 },
 ]; 
-app.get("/getAllBooks", (req, res) => {
-    res.json(books)
+app.get("/getAllUsers", (req, res) => {
+    res.json(users)
 })
 
-app.post("/addNewBook", (req, res )=>{
- const newbook = {
-   id: books.length +1,
+app.post("/addNewUser", (req, res )=>{
+ const newUser = {
+   id: users.length +1,
    title: req.body.title,
    author: req.body.author,
  };
-books.push(newbook);
-res.json ({ message:"Book added successfully", book:newbook});
+users.push(newUser);
+res.json ({ message:"user added successfully", user:newUser});
 
 });
 
-app.put( "/updateBook/:id" ,(req, res)=>{
-    const bookId = parseInt (req.params.id)
-    const foundBook = books.find((b) => b.id === bookId)
-    if (!foundBook){
-   return res.status(404).json({message: "books not found!" });   
+app.put( "/updateUser/:id" ,(req, res)=>{
+    const userId = parseInt (req.params.id)
+    const founduser = users.find((b) => b.id === userId)
+    if (!founduser){
+   return res.status(404).json({message: "users not found!" });   
 }
 
-foundBook.title = req.body.title || foundBook.title;
-foundBook.author = req.body.author || foundBook.author;
-res.json ({ messages: "Book uppdated successfully", foundBook })
+founduser.title = req.body.title || founduser.title;
+founduser.author = req.body.author || founduser.author;
+res.json ({ messages: "user uppdated successfully", founduser })
 });
 
-app.delete("/deleteBook/:id", (req, res) =>{
-    const bookId = parseInt (req.params.id)
-    books = books.filter((b) => b.id === bookId)
-    res.json ({ messages: "Book deleted successfully",books })
+app.delete("/deleteUser/:id", (req, res) =>{
+    const userId = parseInt (req.params.id)
+    users = users.filter((b) => b.id === userId)
+    res.json ({ messages: "user deleted successfully",users })
 })
